@@ -86,7 +86,7 @@
                     @if(session()->has('response'))
                         <p class="card-text">{{session()->get('response')}}</p>
                     @else
-                        <p class="card-text">{{$generated_text}}</p>
+
                     @endif
                     <form method="POST" action="{{ route('openai.generate-text') }}">
                         @csrf

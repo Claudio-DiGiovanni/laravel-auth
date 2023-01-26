@@ -6,6 +6,7 @@ use OpenAI\Client as OpenAI;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OpenAIController extends Controller
 {
@@ -25,7 +26,7 @@ class OpenAIController extends Controller
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
-            "Authorization: Bearer '$apiKey'"
+            "Authorization: Bearer $apiKey"
         ]);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($curl);
@@ -34,9 +35,10 @@ class OpenAIController extends Controller
             echo "Error: " . curl_error($curl);
         }
         curl_close($curl);
-        dd($response);
+        // dd($response);
         $response = json_decode($response, true);
         $generated_text = $response['choices'][0]['text'];
-        return view('admin.home', ['generated_text' => $generated_text]);
+        $user = Auth::user();
+        return view('admin.home', compact('generated_text', 'user'));
     }
 }
