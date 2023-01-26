@@ -6,7 +6,7 @@ use OpenAI\Client as OpenAI;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 
 class OpenAIController extends Controller
 {
@@ -38,7 +38,6 @@ class OpenAIController extends Controller
         // dd($response);
         $response = json_decode($response, true);
         $generated_text = $response['choices'][0]['text'];
-        $user = Auth::user();
-        return view('admin.home', compact('generated_text', 'user'));
+        return view('admin/', compact('generated_text'));
     }
 }
