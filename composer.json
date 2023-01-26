@@ -8,6 +8,7 @@
     ],
     "license": "MIT",
     "require": {
+        "openai/openai": "^2.0",
         "php": "^7.2.5|^8.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use OpenAI\OpenAI;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-use OpenAI\OpenAI;
 
 class OpenAIController extends Controller
 {
