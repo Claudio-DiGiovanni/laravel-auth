@@ -80,9 +80,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        //dd($request);
         $data = $request->all();
-
-        $post->slug = $data['slug'];
         $post->title = $data['title'];
         $post->image = $data['image'];
         $post->content = $data['content'];
