@@ -83,12 +83,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Fammi una domanda</h5>
-                    @if(session()->has('response'))
-                        <p class="card-text" id="chatbot-response"></p>
-                    @else
-
-                    @endif
-                    <form id="chatbot-form">
+                    <form id="chatbot-form" action="{{ route('openai.generate-text') }}" method="POST">
                         @csrf
                         <textarea class="form-control" name="prompt" rows="3"></textarea>
                         <button type="submit" class="btn btn-primary" id="chatbot-submit">Chiedi</button>
@@ -98,21 +93,5 @@
         </div>
        @endauth
     </div>
-    <script>
-        $("#chatbot-form").submit(function(e) {
-            e.preventDefault(); // impedisce il ricaricamento della pagina
-            var form = $(this);
-            var url = '{{ route('openai.generate-text') }}';
-            var data = form.serialize();
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                success: function(response) {
-                    $("#chatbot-response").html(response.answer);
-                }
-            });
-        });
-    </script>
 </body>
 </html>

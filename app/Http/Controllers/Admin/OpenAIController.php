@@ -38,6 +38,6 @@ class OpenAIController extends Controller
         // dd($response);
         $response = json_decode($response, true);
         $generated_text = $response['choices'][0]['text'];
-        return view('admin/', compact('generated_text'));
+        return view('admin.response', compact('generated_text'));
     }
 }
