@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    Welcome page
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -75,6 +75,28 @@
         <main class="py-4">
             @yield('content')
         </main>
+       @auth
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    Chatbot
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Come posso aiutarti?</h5>
+                    @if(session()->has('response'))
+                        <p class="card-text">{{session()->get('response')}}</p>
+                    @else
+                        <p class="card-text"></p>
+                    @endif
+                    <form method="POST" action="{{ route('openai.generate-text') }}">
+                        @csrf
+                        <textarea class="form-control" name="prompt" rows="3"></textarea>
+                        <button type="submit" class="btn btn-primary">Chiedi</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+       @endauth
     </div>
 </body>
 </html>
