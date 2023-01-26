@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class OpenAIController extends Controller
 {
     public function generateText(Request $request) {
+        $apiKey = env('OPENAI_SECRET');
         $url = 'https://api.openai.com/v1/engines/davinci/completions';
         $prompt = $request->input('prompt');
         $data = [
@@ -24,7 +25,7 @@ class OpenAIController extends Controller
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
-            'Authorization: Bearer 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'
+            "Authorization: Bearer '$apiKey'"
         ]);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($curl);
@@ -33,8 +34,9 @@ class OpenAIController extends Controller
             echo "Error: " . curl_error($curl);
         }
         curl_close($curl);
+        dd($response);
         $response = json_decode($response, true);
         $generated_text = $response['choices'][0]['text'];
-        return response()->json(['generated_text' => $generated_text]);
+        return view('admin.home', ['generated_text' => $generated_text]);
     }
 }
