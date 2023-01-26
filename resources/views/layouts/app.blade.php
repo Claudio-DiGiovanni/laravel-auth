@@ -89,7 +89,7 @@
         <main class="py-4">
             @yield('content')
         </main>
-       @auth
+       {{-- @auth
         <div class="container">
             <div class="card">
                 <div class="card-header">
@@ -105,7 +105,7 @@
                 </div>
             </div>
         </div>
-       @endauth
+       @endauth --}}
     </div>
 </body>
 </html>
